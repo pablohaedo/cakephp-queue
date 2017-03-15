@@ -1,11 +1,16 @@
 {
-	"name": "dereuromark/cakephp-queue",
+	"name": "rgoro/cakephp-queue",
 	"type": "cakephp-plugin",
-	"description": "The Queue plugin for CakePHP provides deferred task execution.",
+	"description": "The Queue plugin for CakePHP provides deferred task execution. -- MongoDB backend",
 	"keywords": ["cakephp","queue","deferred tasks","background"],
-	"homepage": "http://github.com/dereuromark/cakephp-queue",
+	"homepage": "http://github.com/rgoro/cakephp-queue",
 	"license": "MIT",
 	"authors": [
+		{
+			"name": "Román Gorojovsky Sánchez",
+			"homepage": "https://github.com/rgoro",
+			"role": "Contributor"
+		},
 		{
 			"name": "Mark Scherer",
 			"homepage": "http://www.dereuromark.de",
@@ -19,7 +24,9 @@
 	],
 	"require": {
 		"cakephp/cakephp": "^3.2",
-		"php": ">=5.5"
+		"php": ">=5.5",
+		"lewestopher/cakephp-monga": "^0.5.0",
+		"dereuromark/cakephp-queue": "dev-master"
 	},
 	"require-dev": {
 		"cakephp/migrations": "^1.0",
@@ -30,7 +37,7 @@
 		"dereuromark/cakephp-tools": "For the Email lib and QueueEmailTask. Or write your own task here. Also for admin backend."
 	},
 	"support": {
-		"source": "https://github.com/dereuromark/cakephp-queue"
+		"source": "https://github.com/rgoro/cakephp-queue"
 	},
 	"autoload": {
 		"psr-4": {
