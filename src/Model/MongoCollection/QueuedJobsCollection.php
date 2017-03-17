@@ -1,14 +1,12 @@
 <?php
-namespace App\Model\MongoCollection;
-
-use \MongoDB\BSON\UTCDateTime;
+namespace Queue\Model\MongoCollection;
 
 use CakeMonga\MongoCollection\BaseCollection;
 
 use Cake\I18n\Time;
 use Cake\Log\LogTrait;
 
-use App\Model\Entity\MongoQueuedJob;
+use Queue\Model\Entity\MongoQueuedJob;
 
 class QueuedJobsCollection extends BaseCollection {
 	use LogTrait;
@@ -39,7 +37,7 @@ class QueuedJobsCollection extends BaseCollection {
 			'job_type' => $jobName,
 			'data' => is_array($data) ? json_encode($data) : null,
 			'job_group' => !empty($config['group']) ? $config['group'] : null,
-			'notbefore' => !empty($config['notBefore']) ? new Time($config['notBefore']) : null,
+			'notbefore' => !empty($config['notBefore']) ? (new Time($config['notBefore']))->toUnixString() : null,
 		] + $config;
 
 		$queuedJob = MongoQueuedJob::fromArray($queuedJob);
@@ -48,6 +46,7 @@ class QueuedJobsCollection extends BaseCollection {
 			throw new Exception('Invalid entity data');
 		}
 
+		$queuedJob->unsetIdMongo();
 		$_id = $this->collection->insert((array)$queuedJob);
 
 		$queuedJob->setId($_id);
@@ -158,17 +157,20 @@ class QueuedJobsCollection extends BaseCollection {
 		//];
 
 
-		$conditions['notbefore'] = ['$or' => ['$lt' => $mongoNow, '$eq' => null]];
-
 		if (count($capabilities)) {
-			$conditions['job_type'] = ['$or' => []];
+			$conditions['job_type'] = ['$in' => []];
 			foreach ($capabilities as $task) {
 				list($plugin, $name) = pluginSplit($task['name']);
-				$conditions['job_type']['$or'][] = $task['name'];
+				$conditions['job_type']['$in'][] = $task['name'];
 			}
 		}
 
-		$jobs = iterator_to_array($this->find($conditions)->sort(['priority' => 1, 'age' => 1]));
+		$conditions['notbefore'] = ['$lt' => $mongoNow];
+		$jobs_nb = iterator_to_array($this->find($conditions)->sort(['priority' => 1, 'notbefore' => 1]));
+
+		$conditions['notbefore'] = null;
+		$jobs_nb_null = iterator_to_array($this->find($conditions)->sort(['priority' => 1]));
+		$jobs = array_merge($jobs_nb, $jobs_nb_null);
 		if (count($jobs) == 0) {
 			return null;
 		}
@@ -180,41 +182,50 @@ class QueuedJobsCollection extends BaseCollection {
 	
 		if (count($capabilities)) {
 			// Filter jobs by task specific conditions.
-			$i = 0;
-			$job = $jobs[$i];
-			$nextJob = (count($jobs) > $i + 1) ? $jobs[$i + 1] : $job;
 
-			while($job['_id'] != $nextJob['_id']) {
+			// $jobs is an array of [mongoId => document], so if I wish to iterate over it with a 
+			// sequential index, I need to do that over an array of the keys
+			$i = 0;
+			$keys = array_keys($jobs);
+			$job = $jobs[$keys[$i]];
+			$nextJob = (count($jobs) > $i + 1) ? $jobs[$keys[$i + 1]] : null;
+
+			do {
 				foreach ($capabilities as $task) {
 					list($plugin, $name) = pluginSplit($task['name']);
 
 					// We know the job type is one of these, they were filtered before.
 					if ($job['job_type'] == $name) {
 						$timeoutAt = $now->copy();
-						$timeDiffMongo = new UTCDateTime($timeoutAt->subSeconds($task['timeout'])->toUnixString());
+						$timeDiffMongo = $timeoutAt->subSeconds($task['timeout'])->toUnixString();
 
 						if (array_key_exists('fetched', $job) && $job['fetched'] < $timeDiffMongo &&
 							array_key_exists('failed', $job) && $job['failed'] < ($task['retries'] + 1))
 						{
-							// The job is timed out, and hasn't failed too many times. Exit the while loop
+							// The job isn't timed out, and hasn't failed too many times. Exit the while loop
 							$nextJob = $job;
 						} else {
 							$i++;
 							$job = $nextJob;
-							$nextJob = (count($jobs) > $i + 1) ? $jobs[$i + 1] : $job;
+							$nextJob = (count($jobs) > $i + 1) ? $jobs[$keys[$i + 1]] : null;
 						}
 					}
 				}
-			}
+			} while($job != null && $job['_id'] != $nextJob['_id']);
+		} else {
+			$keys = array_keys($jobs);
+			$job = $jobs[$keys[0]];
 		}
 
-		$job = MongoQueuedJob::fromArray($job);
+		if ($job) {
+			$job = MongoQueuedJob::fromArray($job);
 
-		$key = $this->key();
-		$job->setWorkerKey($this->key());
-		$job->setFetched($mongoNow);
+			$key = $this->key();
+			$job->setWorkerKey($this->key());
+			$job->setFetched($mongoNow);
 
-		$this->save($job);
+			$this->save($job);
+		}
 
 		return $job;
 	}
@@ -238,7 +249,7 @@ class QueuedJobsCollection extends BaseCollection {
 	 * @return bool Success
 	 */
 	public function markJobDone(MongoQueuedJob $job) {
-		$job->setCompleted(new UTCDateTime());
+		$job->setCompleted(time());
 
 		return (bool)$this->save($job);
 	}

@@ -84,6 +84,8 @@ Cake\Cache\Cache::config($cache);
 
 Cake\Core\Plugin::load('Queue', ['path' => ROOT . DS, 'autoload' => true, 'bootstrap' => false, 'routes' => true]);
 Cake\Core\Plugin::load('Tools', ['path' => ROOT . DS . 'vendor' . DS . 'deuromark' . DS . 'cakephp-tools' . DS]);
+Cake\Core\Plugin::load('CakeMonga', ['path' => ROOT . DS . 'vendor' . DS . 'lewestopher' . DS . 'cakephp-monga' . DS]);
+
 
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
@@ -123,3 +125,14 @@ ConnectionManager::config('test', [
 	'cacheMetadata' => true,
 
 ]);
+
+ConnectionManager::config('test_mongo_db', [
+		'className' => 'CakeMonga\Database\MongoConnection',
+		'connect' => true,
+		'connectTimeoutMS' => 60000,
+		'database' => 'test_queue',
+		'dns' => 'mongodb://localhost:27017',
+		'socketTimeoutMS' => 30000,
+		'w' => 1,
+		'wTimeoutMS' => 10000
+	]);
