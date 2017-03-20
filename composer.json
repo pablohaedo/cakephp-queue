@@ -26,13 +26,15 @@
 		"cakephp/cakephp": "^3.2",
 		"php": ">=5.5",
 		"lewestopher/cakephp-monga": "^0.5.0",
-		"dereuromark/cakephp-queue": "dev-master"
 	},
 	"require-dev": {
 		"cakephp/migrations": "^1.0",
 		"dereuromark/cakephp-tools": "^1.2",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
+	"conflicts": {
+		"dereuromark/cakephp-queue": "dev-master"
+	}
 	"suggest": {
 		"dereuromark/cakephp-tools": "For the Email lib and QueueEmailTask. Or write your own task here. Also for admin backend."
 	},
