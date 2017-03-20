@@ -11,7 +11,7 @@ This branch is for use with **CakePHP 3**.
 
 ## What this package is
 
-First go read the original background and use cases on [the readme for the forked package](https://github.com/dereuromark/cakephp-queue/blob/master/README.md)
+First go read the original background and use cases on [the readme for the original package](https://github.com/dereuromark/cakephp-queue/blob/master/README.md)
 
 This is an implementation of Mark Scherer's [simple Cake PHP queues](https://github.com/dereuromark/cakephp-queue/) replacing MySQL with MongoDB for the backend.
 
