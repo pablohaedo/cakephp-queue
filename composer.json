@@ -1,8 +1,8 @@
 {
 	"name": "rgoro/cakephp-queue",
 	"type": "cakephp-plugin",
-	"description": "The Queue plugin for CakePHP provides deferred task execution. -- MongoDB backend",
-	"keywords": ["cakephp","queue","deferred tasks","background"],
+	"description": "The Queue plugin for CakePHP provides deferred task execution. This is a MongoDB implementation.",
+	"keywords": ["cakephp","queue","deferred tasks","background","mongodb"],
 	"homepage": "http://github.com/rgoro/cakephp-queue",
 	"license": "MIT",
 	"authors": [

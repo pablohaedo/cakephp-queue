@@ -39,14 +39,38 @@ The Queue plugin provides a simple method to create and run such non-user-intera
 While you can run multiple workers, and can (to some extent) spread these workers to different machines via a shared database,
 you should seriously consider using a more advanced system for high volume/high number of workers systems.
 
+## What this package is
+
+First go read the original background and use cases on [the readme for the forked package](https://github.com/dereuromark/cakephp-queue/blob/master/README.md)
+
+This is an implementation of Mark Scherer's [simple Cake PHP queues](https://github.com/dereuromark/cakephp-queue/) replacing MySQL with MongoDB for the backend.
+
+## What this package is not
+
+This is not a drop-in replacement for the original package.  While I intend to work with that
+package's mantainer to integrate this backend, this is intended to satisfy a particular use case
+first and be of generic use later.
+
+A big issue is that the main classes ([QueuedJobsTable](https://github.com/rgoro/cakephp-queue/blob/master/src/Model/Table/QueuedJobsTable.php),
+[QueueShell](https://github.com/rgoro/cakephp-queue/blob/master/src/Shell/QueueShell.php) and
+[QueueTask](https://github.com/rgoro/cakephp-queue/blob/master/src/Shell/Task/QueueTask.php)) were
+just copied to new MongoDB based implementations ([QueuedJobsCollection](https://github.com/rgoro/cakephp-queue/blob/master/src/Model/MongoCollection/QueuedJobsCollection.php),
+[MongoQueueShell](https://github.com/rgoro/cakephp-queue/blob/master/src/Shell/MongoQueueShell.php) and
+[MongoQueueTask](https://github.com/rgoro/cakephp-queue/blob/master/src/Shell/Task/MongoQueueTask.php)).  An integrated implementation should have these classes as subclasses of
+the originals (or a common base class) and a factory to select which implementation to use based on
+the configuration.
 
 ## Installation and Usage
 See [Documentation](docs).
 
+## To Do items:
+ - The statistics that were implemented in the original package are yet to be ported to Mongo.
+ - The backend controller has not been revised nor tested.
 
 ## History
 
 ### Recent Improvements
+- MongoDB Backend
 - QueuedJobs table instead of QueuedTasks (Tasks are the implementing classes only)
 - json_encode/decode instead of serialize
 - Priority for jobs
