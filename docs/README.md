@@ -3,7 +3,7 @@
 
 ## Installation
 ```
-composer require dereuromark/cakephp-queue:dev-master
+composer require rgoro/cakephp-queue:dev-master
 ```
 
 Enable the plugin within your config/bootstrap.php (unless you use loadAll):
@@ -13,11 +13,6 @@ Plugin::load('Queue');
 If you want to also access the backend controller (not just using CLI), you need to use
 ```php
 Plugin::load('Queue', ['routes' => true]);
-```
-
-Run the following command in the CakePHP console to create the tables using the Migrations plugin:
-```php
-bin/cake Migrations migrate -p Queue
 ```
 
 ## Configuration:
