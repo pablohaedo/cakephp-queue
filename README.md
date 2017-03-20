@@ -1,10 +1,10 @@
 # CakePHP Queue Plugin
-[![Build Status](https://api.travis-ci.org/dereuromark/cakephp-queue.svg?branch=master)](https://travis-ci.org/dereuromark/cakephp-queue)
-[![Coverage Status](https://img.shields.io/codecov/c/github/dereuromark/cakephp-queue/master.svg)](https://codecov.io/github/dereuromark/cakephp-queue?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-queue/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-queue)
+[![Build Status](https://api.travis-ci.org/rgoro/cakephp-queue.svg?branch=master)](https://travis-ci.org/rgoro/cakephp-queue)
+[![Coverage Status](https://img.shields.io/codecov/c/github/rgoro/cakephp-queue/master.svg)](https://codecov.io/github/rgoro/cakephp-queue?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/rgoro/cakephp-queue/v/stable.svg)](https://packagist.org/packages/rgoro/cakephp-queue)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.5-8892BF.svg)](https://php.net/)
-[![License](https://poser.pugx.org/dereuromark/cakephp-queue/license)](https://packagist.org/packages/dereuromark/cakephp-queue)
-[![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-queue/d/total)](https://packagist.org/packages/dereuromark/cakephp-queue)
+[![License](https://poser.pugx.org/rgoro/cakephp-queue/license)](https://packagist.org/packages/rgoro/cakephp-queue)
+[![Total Downloads](https://poser.pugx.org/rgoro/cakephp-queue/d/total)](https://packagist.org/packages/rgoro/cakephp-queue)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
 This branch is for use with **CakePHP 3**.
@@ -22,7 +22,7 @@ The plugin is an attempt to provide a basic, simple to use method to enable defe
 without the hassle of setting up or running an extra queue daemon, while integrating nicely into
 CakePHP and also simplifying the creation of worker scripts.
 
-Please also read the [blog post](http://www.dereuromark.de/2013/12/22/queue-deferred-execution-in-cakephp/).
+Please also read the [blog post](http://www.dereuromark-deferred-execution-in-cakephp/).
 For more robust and production use cases please see the [awesome list](https://github.com/FriendsOfCake/awesome-cakephp#queue).
 
 ### Why use deferred execution?
