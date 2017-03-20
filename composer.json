@@ -32,7 +32,7 @@
 		"dereuromark/cakephp-tools": "^1.2",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
-	"conflicts": {
+	"conflict": {
 		"dereuromark/cakephp-queue": "dev-master"
 	},
 	"suggest": {
