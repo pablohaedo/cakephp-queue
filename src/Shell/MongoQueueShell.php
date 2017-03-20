@@ -12,7 +12,6 @@ use Cake\I18n\Time;
 use Cake\Log\Log;
 use Cake\Utility\Inflector;
 use Exception;
-use Cake\Datasource\ConnectionManager;
 
 use CakeMonga\MongoCollection\CollectionRegistry;
 
@@ -93,12 +92,10 @@ class MongoQueueShell extends Shell {
 		}
 		$tasks = implode(PHP_EOL, $tasks);
 
-		$text = <<<TEXT
-Simple and minimalistic job queue (or deferred-task) system.
+		$text  = "Simple and minimalistic job queue (or deferred-task) system.\n";
+		$text .= "\nAvailable Tasks:\n";
+		$text .= print_r($tasks, true);
 
-Available Tasks:
-$tasks
-TEXT;
 		return $text;
 	}
 

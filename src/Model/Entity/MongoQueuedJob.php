@@ -193,15 +193,27 @@ class MongoQueuedJob implements ArrayAccess {
 
 	/* ArrayAccess methods */
 	public function offsetExists($offset) {
+		if ($offset === 'id')
+			$offset = '_id';
+
 		return property_exists($this, $offset);
 	}
 	public function offsetGet($offset) {
+		if ($offset === 'id')
+			$offset = '_id';
+
 		return $this->{$offset};
 	}
 	public function offsetSet($offset, $value) {
+		if ($offset === 'id')
+			$offset = '_id';
+
 		$this->{$offset} = $value;
 	}
 	public function offsetUnset($offset) {
+		if ($offset === 'id')
+			$offset = '_id';
+
 		unset($this->{$offset});
 	}
 }

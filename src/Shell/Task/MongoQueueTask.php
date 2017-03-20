@@ -8,7 +8,6 @@ namespace Queue\Shell\Task;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\Shell;
-use Cake\Datasource\ConnectionManager;
 
 use CakeMonga\MongoCollection\CollectionRegistry;
 

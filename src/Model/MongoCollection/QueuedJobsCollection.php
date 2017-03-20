@@ -1,9 +1,14 @@
 <?php
 namespace Queue\Model\MongoCollection;
 
+use \RegexIterator;
+use \RecursiveIteratorIterator;
+use \RecursiveDirectoryIterator;
+
 use CakeMonga\MongoCollection\BaseCollection;
 
 use Cake\I18n\Time;
+use Cake\Core\Configure;
 use Cake\Log\LogTrait;
 
 use Queue\Model\Entity\MongoQueuedJob;
