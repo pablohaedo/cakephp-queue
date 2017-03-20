@@ -21,7 +21,7 @@ This is not a drop-in replacement for the original package.  While I intend to w
 package's mantainer to integrate this backend, this is intended to satisfy a particular use case
 first and be of generic use later.
 
-A big issue is that the main classes ([QueuedJobsTable](https://github.com/rgoro/cakephp-queue/blob/master/src/Model/Table/QueuedJobsTable.php),
+A major issue is that the main classes ([QueuedJobsTable](https://github.com/rgoro/cakephp-queue/blob/master/src/Model/Table/QueuedJobsTable.php),
 [QueueShell](https://github.com/rgoro/cakephp-queue/blob/master/src/Shell/QueueShell.php) and
 [QueueTask](https://github.com/rgoro/cakephp-queue/blob/master/src/Shell/Task/QueueTask.php)) were
 just copied to new MongoDB based implementations ([QueuedJobsCollection](https://github.com/rgoro/cakephp-queue/blob/master/src/Model/MongoCollection/QueuedJobsCollection.php),
@@ -36,6 +36,7 @@ See [Documentation](docs).
 ## To Do items:
  - The statistics that were implemented in the original package are yet to be ported to Mongo.
  - The backend controller has not been revised nor tested.
+ - Make this implementation compatible with the MySQL implementation.
 
 ## History
 
