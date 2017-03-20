@@ -9,36 +9,6 @@
 
 This branch is for use with **CakePHP 3**.
 
-
-## Background:
-
-This is a very simple and minimalistic job queue (or deferred-task) system for CakePHP.
-It is mainly **for demo purposes** on how queues work and doesn't have any dependencies.
-
-Overall functionality is inspired by systems like Gearman, Beanstalk or dropr, but without
-any illusion to compete with these more advanced Systems.
-
-The plugin is an attempt to provide a basic, simple to use method to enable deferred job execution,
-without the hassle of setting up or running an extra queue daemon, while integrating nicely into
-CakePHP and also simplifying the creation of worker scripts.
-
-Please also read the [blog post](http://www.dereuromark-deferred-execution-in-cakephp/).
-For more robust and production use cases please see the [awesome list](https://github.com/FriendsOfCake/awesome-cakephp#queue).
-
-### Why use deferred execution?
-
-Deferred execution makes sense (especially in PHP) when your page wants to execute tasks, which are not directly related to rendering the current page.
-For instance, in a BBS-type system, a new users post might require the creation of multiple personalized email messages,
-notifying other users of the new content.
-Creating and sending these emails is completely irrelevant to the currently active user, and should not increase page response time.
-Another example would be downloading, extraction and/or analyzing an external file per request of the user.
-The regular solution to these problems would be to create specialized cronjobs which use specific database states to determine which action should be done.
-
-The Queue plugin provides a simple method to create and run such non-user-interaction-critical tasks.
-
-While you can run multiple workers, and can (to some extent) spread these workers to different machines via a shared database,
-you should seriously consider using a more advanced system for high volume/high number of workers systems.
-
 ## What this package is
 
 First go read the original background and use cases on [the readme for the forked package](https://github.com/dereuromark/cakephp-queue/blob/master/README.md)
