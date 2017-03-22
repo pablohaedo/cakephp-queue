@@ -146,22 +146,6 @@ class QueuedJobsCollection extends BaseCollection {
 			$conditions['job_group'] = $group;
 		}
 
-		//$options = [
-			//'conditions' => [
-			//	'completed IS' => null,
-			//	'OR' => [],
-			//],
-			//'fields' => [
-			//	'age' => $query->newExpr()->add('IFNULL(TIMESTAMPDIFF(SECOND, "' . $nowStr . '", notbefore), 0)')
-			//],
-			//'order' => [
-			//	'priority' => 'ASC',
-			//	'age' => 'ASC',
-			//	'id' => 'ASC',
-			//]
-		//];
-
-
 		if (count($capabilities)) {
 			$conditions['job_type'] = ['$in' => []];
 			foreach ($capabilities as $task) {
