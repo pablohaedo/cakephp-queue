@@ -66,6 +66,9 @@ class MongoQueuedJob implements ArrayAccess {
 		if (array_key_exists('failure_message', $a)) {
 			$queuedJob->setFailureMessage($a['failure_message']);
 		}
+		if (array_key_exists('failed', $a)) {
+			$queuedJob->setFailed($a['failed']);
+		}
 		if (array_key_exists('worker_key', $a)) {
 			$queuedJob->setWorkerKey($a['worker_key']);
 		}
